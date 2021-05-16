@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <title>if.utf8</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="if_files/reveal.js-3.3.0.1/css/reveal.css"/>
+
+
+
+<link rel="stylesheet" href="if_files/reveal.js-3.3.0.1/css/theme/white.css" id="theme">
+
+
+  <!-- some tweaks to reveal css -->
+  <style type="text/css">
+    .reveal h1 { font-size: 2.0em; }
+    .reveal h2 { font-size: 1.5em;  }
+    .reveal h3 { font-size: 1.25em;	}
+    .reveal h4 { font-size: 1em;	}
+
+    .reveal .slides>section,
+    .reveal .slides>section>section {
+      padding: 0px 0px;
+    }
+
+
+
+    .reveal table {
+      border-width: 1px;
+      border-spacing: 2px;
+      border-style: dotted;
+      border-color: gray;
+      border-collapse: collapse;
+      font-size: 0.7em;
+    }
+
+    .reveal table th {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      font-weight: bold;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal table td {
+      border-width: 1px;
+      padding-left: 10px;
+      padding-right: 25px;
+      border-style: dotted;
+      border-color: gray;
+    }
+
+    .reveal .slide-menu-button {
+      left: 105px !important;
+    }
+
+  </style>
+
+    <style type="text/css">code{white-space: pre;}</style>
+
+    <link rel="stylesheet" href="style.css"/>
+
+<!-- Printing and PDF exports -->
+<script id="paper-css" type="application/dynamic-css">
+
+/* Default Print Stylesheet Template
+   by Rob Glazebrook of CSSnewbie.com
+   Last Updated: June 4, 2008
+
+   Feel free (nay, compelled) to edit, append, and
+   manipulate this file as you see fit. */
+
+
+@media print {
+
+	/* SECTION 1: Set default width, margin, float, and
+	   background. This prevents elements from extending
+	   beyond the edge of the printed page, and prevents
+	   unnecessary background images from printing */
+	html {
+		background: #fff;
+		width: auto;
+		height: auto;
+		overflow: visible;
+	}
+	body {
+		background: #fff;
+		font-size: 20pt;
+		width: auto;
+		height: auto;
+		border: 0;
+		margin: 0 5%;
+		padding: 0;
+		overflow: visible;
+		float: none !important;
+	}
+
+	/* SECTION 2: Remove any elements not needed in print.
+	   This would include navigation, ads, sidebars, etc. */
+	.nestedarrow,
+	.controls,
+	.fork-reveal,
+	.share-reveal,
+	.state-background,
+	.reveal .progress,
+	.reveal .backgrounds {
+		display: none !important;
+	}
+
+	/* SECTION 3: Set body font face, size, and color.
+	   Consider using a serif font for readability. */
+	body, p, td, li, div {
+		font-size: 20pt!important;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		color: #000;
+	}
+
+	/* SECTION 4: Set heading font face, sizes, and color.
+	   Differentiate your headings from your body text.
+	   Perhaps use a large sans-serif for distinction. */
+	h1,h2,h3,h4,h5,h6 {
+		color: #000!important;
+		height: auto;
+		line-height: normal;
+		font-family: Georgia, "Times New Roman", Times, serif !important;
+		text-shadow: 0 0 0 #000 !important;
+		text-align: left;
+		letter-spacing: normal;
+	}
+	/* Need to reduce the size of the fonts for printing */
+	h1 { font-size: 28pt !important;  }
+	h2 { font-size: 24pt !important; }
+	h3 { font-size: 22pt !important; }
+	h4 { font-size: 22pt !important; font-variant: small-caps; }
+	h5 { font-size: 21pt !important; }
+	h6 { font-size: 20pt !important; font-style: italic; }
+
+	/* SECTION 5: Make hyperlinks more usable.
+	   Ensure links are underlined, and consider appending
+	   the URL to the end of the link for usability. */
+	a:link,
+	a:visited {
+		color: #000 !important;
+		font-weight: bold;
+		text-decoration: underline;
+	}
+	/*
+	.reveal a:link:after,
+	.reveal a:visited:after {
+		content: " (" attr(href) ") ";
+		color: #222 !important;
+		font-size: 90%;
+	}
+	*/
+
+
+	/* SECTION 6: more reveal.js specific additions by @skypanther */
+	ul, ol, div, p {
+		visibility: visible;
+		position: static;
+		width: auto;
+		height: auto;
+		display: block;
+		overflow: visible;
+		margin: 0;
+		text-align: left !important;
+	}
+	.reveal pre,
+	.reveal table {
+		margin-left: 0;
+		margin-right: 0;
+	}
+	.reveal pre code {
+		padding: 20px;
+		border: 1px solid #ddd;
+	}
+	.reveal blockquote {
+		margin: 20px 0;
+	}
+	.reveal .slides {
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 0 !important;
+		zoom: 1 !important;
+
+		overflow: visible !important;
+		display: block !important;
+
+		text-align: left !important;
+		-webkit-perspective: none;
+		   -moz-perspective: none;
+		    -ms-perspective: none;
+		        perspective: none;
+
+		-webkit-perspective-origin: 50% 50%;
+		   -moz-perspective-origin: 50% 50%;
+		    -ms-perspective-origin: 50% 50%;
+		        perspective-origin: 50% 50%;
+	}
+	.reveal .slides section {
+		visibility: visible !important;
+		position: static !important;
+		width: auto !important;
+		height: auto !important;
+		display: block !important;
+		overflow: visible !important;
+
+		left: 0 !important;
+		top: 0 !important;
+		margin-left: 0 !important;
+		margin-top: 0 !important;
+		padding: 60px 20px !important;
+		z-index: auto !important;
+
+		opacity: 1 !important;
+
+		page-break-after: always !important;
+
+		-webkit-transform-style: flat !important;
+		   -moz-transform-style: flat !important;
+		    -ms-transform-style: flat !important;
+		        transform-style: flat !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+
+		-webkit-transition: none !important;
+		   -moz-transition: none !important;
+		    -ms-transition: none !important;
+		        transition: none !important;
+	}
+	.reveal .slides section.stack {
+		padding: 0 !important;
+	}
+	.reveal section:last-of-type {
+		page-break-after: avoid !important;
+	}
+	.reveal section .fragment {
+		opacity: 1 !important;
+		visibility: visible !important;
+
+		-webkit-transform: none !important;
+		   -moz-transform: none !important;
+		    -ms-transform: none !important;
+		        transform: none !important;
+	}
+	.reveal section img {
+		display: block;
+		margin: 15px 0px;
+		background: rgba(255,255,255,1);
+		border: 1px solid #666;
+		box-shadow: none;
+	}
+
+	.reveal section small {
+		font-size: 0.8em;
+	}
+
+}  
+</script>
+
+
+<script id="pdf-css" type="application/dynamic-css">
+    
+/**
+ * This stylesheet is used to print reveal.js
+ * presentations to PDF.
+ *
+ * https://github.com/hakimel/reveal.js#pdf-export
+ */
+
+* {
+	-webkit-print-color-adjust: exact;
+}
+
+body {
+	margin: 0 auto !important;
+	border: 0;
+	padding: 0;
+	float: none !important;
+	overflow: visible;
+}
+
+html {
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* Remove any elements not needed in print. */
+.nestedarrow,
+.reveal .controls,
+.reveal .progress,
+.reveal .playback,
+.reveal.overview,
+.fork-reveal,
+.share-reveal,
+.state-background {
+	display: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	text-shadow: 0 0 0 #000 !important;
+}
+
+.reveal pre code {
+	overflow: hidden !important;
+	font-family: Courier, 'Courier New', monospace !important;
+}
+
+ul, ol, div, p {
+	visibility: visible;
+	position: static;
+	width: auto;
+	height: auto;
+	display: block;
+	overflow: visible;
+	margin: auto;
+}
+.reveal {
+	width: auto !important;
+	height: auto !important;
+	overflow: hidden !important;
+}
+.reveal .slides {
+	position: static;
+	width: 100%;
+	height: auto;
+
+	left: auto;
+	top: auto;
+	margin: 0 !important;
+	padding: 0 !important;
+
+	overflow: visible;
+	display: block;
+
+	-webkit-perspective: none;
+	   -moz-perspective: none;
+	    -ms-perspective: none;
+	        perspective: none;
+
+	-webkit-perspective-origin: 50% 50%; /* there isn't a none/auto value but 50-50 is the default */
+	   -moz-perspective-origin: 50% 50%;
+	    -ms-perspective-origin: 50% 50%;
+	        perspective-origin: 50% 50%;
+}
+
+.reveal .slides section {
+	page-break-after: always !important;
+
+	visibility: visible !important;
+	position: relative !important;
+	display: block !important;
+	position: relative !important;
+
+	margin: 0 !important;
+	padding: 0 !important;
+	box-sizing: border-box !important;
+	min-height: 1px;
+
+	opacity: 1 !important;
+
+	-webkit-transform-style: flat !important;
+	   -moz-transform-style: flat !important;
+	    -ms-transform-style: flat !important;
+	        transform-style: flat !important;
+
+	-webkit-transform: none !important;
+	   -moz-transform: none !important;
+	    -ms-transform: none !important;
+	        transform: none !important;
+}
+
+.reveal section.stack {
+	margin: 0 !important;
+	padding: 0 !important;
+	page-break-after: avoid !important;
+	height: auto !important;
+	min-height: auto !important;
+}
+
+.reveal img {
+	box-shadow: none;
+}
+
+.reveal .roll {
+	overflow: visible;
+	line-height: 1em;
+}
+
+/* Slide backgrounds are placed inside of their slide when exporting to PDF */
+.reveal section .slide-background {
+	display: block !important;
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	z-index: -1;
+}
+
+/* All elements should be above the slide-background */
+.reveal section>* {
+	position: relative;
+	z-index: 1;
+}
+
+/* Display slide speaker notes when 'showNotes' is enabled */
+.reveal .speaker-notes-pdf {
+	display: block;
+	width: 100%;
+	max-height: none;
+	left: auto;
+	top: auto;
+	z-index: 100;
+}
+
+/* Display slide numbers when 'slideNumber' is enabled */
+.reveal .slide-number-pdf {
+	display: block;
+	position: absolute;
+	font-size: 14px;
+}
+
+</script>
+
+
+<script>
+var style = document.createElement( 'style' );
+style.type = 'text/css';
+var style_script_id = window.location.search.match( /print-pdf/gi ) ? 'pdf-css' : 'paper-css';
+var style_script = document.getElementById(style_script_id).text;
+style.innerHTML = style_script;
+document.getElementsByTagName('head')[0].appendChild(style);
+</script>
+
+    <script src="if_files/header-attrs-2.7/header-attrs.js"></script>
+    <link href="if_files/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+    <link href="if_files/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+
+<section id="susceptibilidad-a-la-ocurrencia-de-incendios-forestales-a-nivel-nacional-usando-opendata-rgee" class="title-slide slide level1">
+<h1>Susceptibilidad a la ocurrencia de incendios forestales a nivel nacional usando OpenData + rgee</h1>
+<table align="center">
+<a align="left"> <img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/forest-on-fire-3046552-2534481.png" width="20%" height="20%"> </a> <a align="right"> <img src = "https://user-images.githubusercontent.com/16768318/118376965-5f7dca80-b5cb-11eb-9a82-47876680a3e6.png" width="20%" height="15%"> </a>
+</table>
+<p>
+<p>Antony Barja 🤓 <br> <i class="fab fa-github"></i><a href="https://github.com/ambarja">https://github.com/ambarja</a> <br> <b>UNMSM - Ingeniería Geográfica</b> <br> 2021-05-16</p>
+</section>
+
+<section id="introducción" class="title-slide slide level1">
+<h1>Introducción</h1>
+<p><img src= 'img/1.png' height="15%" width="60%"></p>
+<ul>
+<li>Contexto histórico</li>
+<li>Ventajas</li>
+<li>Desventajas</li>
+</ul>
+</section>
+
+<section id="incendios-forestales" class="title-slide slide level1">
+<h1>¿Incendios Forestales 🤔?</h1>
+<p align='center'>
+“Fuego descontrolado que afecta a la cobertura vegetal”
+<p>
+<p><strong>Base Legal</strong> - <a href="http://extwprlegs1.fao.org/docs/pdf/per89618.pdf">DS N°017, 2009 (Reglamento de Capacidad de Uso Mayor del Suelo)</a></p>
+<p><img data-src="img/cum_tabla.png" /></p>
+</section>
+
+<section id="entonces" class="title-slide slide level1">
+<h1>Entonces…</h1>
+<p><img src='img/book.png' height="30%" width="30%"></p>
+<p><em>LAS ACTIVIDADES PECUARIAS Y AGRICOLAS SON LA CAUSA DEL <strong>90%</strong> DE LOS IF EN AMERICA DEL SUR</em></p>
+</section>
+
+<section id="paper-base" class="title-slide slide level1">
+<h1>Paper base 💥</h1>
+<p><img data-src="img/paper_base1.png" /> Los IF se han convertido en un problema de salud pública cada vez mayor,y el humo de los IF es la causa directa de muerte de 339’000 personas al año.</p>
+</section>
+
+<section id="perspectivas" class="title-slide slide level1">
+<h1>Perspectivas 📈</h1>
+<p><img data-src="img/paper_base2.png" /></p>
+<p align="center">
+La interacción de los IF con la pandemia actual podría aumentar las admisiones hospitalarias en un 10%.
+</p>
+<p align="center">
+<b>¿El Perú estamos preparado para esto?</b>
+</p>
+</section>
+
+<section id="contexto-peruano" class="title-slide slide level1">
+<h1>Contexto peruano 🤔?</h1>
+<p><img data-src="img/dep_if.png" /></p>
+</section>
+
+<section id="estacionalidad" class="title-slide slide level1">
+<h1>Estacionalidad</h1>
+<p><img data-src="img/heatmap2_sierra.png" /> # Importancia de caracterizar los IF</p>
+<p><br> * Se puede utilizar como punto de referencia para la asignación de recursos dentro de las temporadas de incendios para la gestión y prevención (corto plazo).</p>
+<p><br> * Herramienta valiosa para la gestión territorial(largo plazo) <br> * Seleccionar áreas críticas para el monitoreo de ecosistemas que están en riesgo. <br> * …</p>
+</section>
+
+<section id="caracterización-de-peligro-por-incendios-forestales" class="title-slide slide level1">
+<h1>Caracterización de peligro por incendios forestales</h1>
+<p><img src= "img/cenepred.png" height = "300px"></p>
+<p><strong>Limitaciones:</strong> Métodos subjetivos que pueden diferir de un experto a otro y también pueden sufrir limitaciones cognitivas centradas en la incertidumbre y la subjetividad <a href="https://link.springer.com/article/10.1007%2Fs11069-013-0728-5">Pourghasemi et.,al, 2013</a></p>
+</section>
+
+<section id="enfoques-alternativos" class="title-slide slide level1">
+<h1>Enfoques alternativos</h1>
+<p><img src= "img/alternativas.png" height = "300px" width="700px"></p>
+<ul>
+<li>SVM(Support vector machine)</li>
+<li>BRT(Boosted Regression Trees)</li>
+<li>RF (Random Forest)</li>
+<li>GLM (Generalized Linear Model)</li>
+<li>…</li>
+</ul>
+</section>
+
+<section id="flujograma-de-trabajo" class="title-slide slide level1">
+<h1>flujograma de trabajo</h1>
+<p><br> <br> <img src="img/modelo.png" align="center" height="400px"></p>
+</section>
+
+<section id="base-de-datos-histórica" class="title-slide slide level1">
+<h1>Base de datos histórica</h1>
+<p><img src="img/data.png" align="center"  height = "300px" width="550px"></p>
+<p><a href="https://developers.google.com/earth-engine/datasets/catalog/MODIS_006_MCD64A1#description">Giglio, L., C. Justice, L. Boschetti, D. Roy. MCD64A1 MODIS/Terra+Aqua Burned Area Monthly L3 Global 500m SIN Grid V006. 2015</a></p>
+</section>
+
+<section id="target" class="title-slide slide level1">
+<h1>Target</h1>
+<p><img src="img/target.png" align="top" height = "650px"></p>
+</section>
+
+<section id="predictores" class="title-slide slide level1">
+<h1>Predictores</h1>
+<p><img src="img/covariables.png" align="top" height = "550px"></p>
+</section>
+
+<section id="análisis-de-vif" class="title-slide slide level1">
+<h1>Análisis de vif</h1>
+<p><img src="img/vif.png" align="top" height = "550px"></p>
+</section>
+
+<section id="selección-del-mejor-modelo-según-cv" class="title-slide slide level1">
+<h1>Selección del mejor modelo según ~CV</h1>
+<p><img src="img/cv_model.png" align="top" height = "550px"></p>
+</section>
+
+<section id="mapa-final" class="title-slide slide level1">
+<h1>Mapa final</h1>
+<img src="img/if_map.png" align="top" height = "500px">
+<p align="cetner">
+<a href="/home/barja/Música/presentation/map.html">click</a>
+</p>
+</section>
+
+<section id="resultados-a-nivel-distrital" class="title-slide slide level1">
+<h1>Resultados a nivel distrital</h1>
+<p><img src="img/distritos.png" align="center" height = "590px"></p>
+</section>
+
+<section id="por-departamento-y-distrito" class="title-slide slide level1">
+<h1>Por departamento y distrito</h1>
+<table>
+<thead>
+<tr class="header">
+<th>Departamento</th>
+<th>Index</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Apurimac</td>
+<td>0.829</td>
+</tr>
+<tr class="even">
+<td>Huacavelica</td>
+<td>0.644</td>
+</tr>
+<tr class="odd">
+<td>La libertad</td>
+<td>0.601</td>
+</tr>
+<tr class="even">
+<td>Ancash</td>
+<td>0.577</td>
+</tr>
+<tr class="odd">
+<td>Puno</td>
+<td>0.567</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th>Distritos</th>
+<th>index</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>San Pedro de Cachora - Abancay</td>
+<td>0.958</td>
+</tr>
+<tr class="even">
+<td>Salcahuasi - Huancavelica</td>
+<td>0.952</td>
+</tr>
+<tr class="odd">
+<td>Paucartambo - Pasco</td>
+<td>0.950</td>
+</tr>
+<tr class="even">
+<td>Salcabamba - Huancavelica</td>
+<td>0.949</td>
+</tr>
+<tr class="odd">
+<td>Pacucha - Apurimac</td>
+<td>0.946</td>
+</tr>
+</tbody>
+</table>
+</section>
+
+<section id="conclusiones" class="title-slide slide level1">
+<h1>Conclusiones</h1>
+<ul>
+<li>Las variables que más influyen la modelo de forma global son la modificación humana, radiación solar, pendiente</li>
+<li>Se demuestra que los IF presentan patrones de autocorrelación espacial, y las zonas con mayor incidencia están en las zonas andinas.<br />
+</li>
+<li>Los mayores incidencias de IF son en los meses de agosto-octubre.</li>
+<li>Los 5 departamentos con mayor susceptibilidad a IF son:
+<ul>
+<li>Apurimac</li>
+<li>Huancavelica</li>
+<li>La Libertad</li>
+<li>Ancash</li>
+<li>Puno</li>
+</ul></li>
+</ul>
+</section>
+
+<section id="gracias" class="title-slide slide level1">
+<h1>GRACIAS!</h1>
+<p><img src="img/tenor.gif" width="5000px" style="background-size: 100% 100%;"></p>
+</section>
+    </div>
+  </div>
+
+  <script src="if_files/reveal.js-3.3.0.1/lib/js/head.min.js"></script>
+  <script src="if_files/reveal.js-3.3.0.1/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: false,
+        // Transition style
+        transition: 'convex', // none/fade/slide/convex/concave/zoom
+        // Transition style for full page slide backgrounds
+        backgroundTransition: 'default', // none/fade/slide/convex/concave/zoom
+
+        menu: {
+   
+          numbers: true,
+    
+    
+    
+    
+    
+    
+ 
+          custom: false,
+          themes: false,
+          transitions: false
+        },
+
+
+
+        chalkboard: {
+          toggleNotesButton: true,
+          theme: 'chalkboard',
+        },
+
+        keyboard: {
+          67: function() { RevealChalkboard.toggleNotesCanvas() },    // toggle notes canvas when 'c' is pressed
+          66: function() { RevealChalkboard.toggleChalkboard() }, // toggle chalkboard when 'b' is pressed
+          46: function() { RevealChalkboard.clear() },    // clear chalkboard when 'DEL' is pressed
+           8: function() { RevealChalkboard.reset() },    // reset chalkboard data on current slide when 'BACKSPACE' is pressed
+          68: function() { RevealChalkboard.download() }, // downlad recorded chalkboard drawing when 'd' is pressed
+        },
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: 'if_files/reveal.js-3.3.0.1/plugin/notes/notes.js', async: true },
+          { src: 'if_files/reveal.js-3.3.0.1/plugin/search/search.js', async: true },
+          { src: 'if_files/reveal.js-3.3.0.1/plugin/zoom-js/zoom.js', async: true },
+          { src: 'if_files/reveal.js-3.3.0.1/plugin/chalkboard/chalkboard.js', async: true },
+          { src: 'if_files/reveal.js-3.3.0.1/plugin/menu/menu.js', async: true },
+        ]
+      });
+    </script>
+  <!-- dynamically load mathjax for compatibility with self-contained -->
+  <script>
+    (function () {
+      var script = document.createElement("script");
+      script.type = "text/javascript";
+      script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+      document.getElementsByTagName("head")[0].appendChild(script);
+    })();
+  </script>
+
+<script>
+  (function() {
+    if (window.jQuery) {
+      Reveal.addEventListener( 'slidechanged', function(event) {  
+        window.jQuery(event.previousSlide).trigger('hidden');
+        window.jQuery(event.currentSlide).trigger('shown');
+      });
+    }
+  })();
+</script>
+
+
+  </body>
+</html>
